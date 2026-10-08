@@ -4,7 +4,7 @@
 using namespace std;
 #include <vector>
 
-
+//costo 3 ----------------------------------
 int sommamassima3(vector<int> B) {
     auto maxs = 0;
         for (auto i =0; i<B.size(); i++){
@@ -21,12 +21,27 @@ int sommamassima3(vector<int> B) {
     }
     return maxs;
 }
-
-
+//costo 2 ----------------------------------
+int sommamassima2 (vector<int> B) {
+    auto maxs = 0;
+    for (auto i =0; i<B.size(); i++){ 
+        auto somma = 0;
+        for (auto j= i; j< B.size(); j++){      
+            somma += B[j];
+        if (somma> maxs) {
+            maxs = somma;
+        }   
+        }       
+    }
+    return maxs;
+}
 int main(){
     vector<int> A = {4, -6, 3, 5, -2, 1, -4, 6, -3};
 
-auto maxSegmentSum = sommamassima3(A);
-cout << "il segmento di somma massima di A è: "<< maxSegmentSum<< endl;
+auto maxSegmentSum3 = sommamassima3(A);
+cout << "il segmento di somma massima dell'alg di costo 3 di A è: "<< maxSegmentSum3<< endl;
+auto maxSegmentSum2 = sommamassima2(A);
+cout << "il segmento di somma massima dell'alg di costo 2 di A è: "<< maxSegmentSum2<< endl;
 return 0;
 }
+
