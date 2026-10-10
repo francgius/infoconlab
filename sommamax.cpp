@@ -37,19 +37,19 @@ int sommamassima2 (vector<int> B) {
 }
 
 //costo1 ----------------------------------
-int sommamassima1(){
+int sommamassima1(vector<int>B){
     auto maxs=0;
     auto somma=0;
 
-    for (auto j=0; j<B.size; j++){
-        if (somma>0){
+    for (auto j = 0; j < B.size(); j++){
+        if (somma > 0)
             somma += B[j];
         else 
-        somma =B[j];
-        }
-    }
-    if (somma>maxs){
-        maxs = somma;
+            somma = B[j];
+        
+        if (somma > maxs)
+            maxs = somma;
+        
     }
     return maxs;
 }
@@ -62,6 +62,6 @@ auto maxSegmentSum2 = sommamassima2(A);
 cout << "il segmento di somma massima dell'alg di costo 2 di A è: "<< maxSegmentSum2<< endl;
 auto maxSegmentSum1 = sommamassima1(A);
 cout << "il segmento di somma massima dell'alg di costo 1 di A è: "<< maxSegmentSum1<< endl;
-return 0;
+    return 0;
 }
 
