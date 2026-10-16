@@ -7,17 +7,17 @@
 #include <chrono>
 using namespace std;
 
-int random(int a, int b){
-    static random_device rd;
+int random(int a, int b){      //distribuzione uniforme di interi. a e b estremi
+    static random_device rd;         //rende dispoibile la sua chiamata anche all'esterno della funzione
     static mt19937 gen(rd());
     uniform_int_distribution<int> dist(a, b);
     return dist(gen);
 };
 
-vector<int> generaArrayCasuale(int n, int minVal, int maxVal){
+vector<int> generaArrayCasuale(int n, int minVal=-30, int maxVal=30){ //metti le virgole tra le variabili della funzione
     vector<int> A(n);
-    for (int i=0; i <n ; i++){
-        A[i]= random(minVal, maxVal);
+    for (int i=0; i <n ; i++){    //questa funzione riempie un vettore a (size=n)
+        A[i]= random(minVal, maxVal);     //di interi random
     }
     return A;
 };
@@ -29,19 +29,19 @@ void printArray(vector<int>& A){
     cout << endl;
 }  
 
-void selectionsort(vector<int>& A){
-    for (auto i=0; i<A.size()-1; ++i){
+void selectionsort(vector<int>& A){          //richiede di utilizzare A iniziale (quello dato all'inizio della funzione
+    for (auto i=0; i+1<A.size(); ++i){
         auto minimo= A[i];
         auto indiceminimo =i;
-        for (auto j= i+1; j<A.size(); ++j){
+        for (auto j= i+1; j<A.size(); ++j){  //guarda i successivi per capire quale è il minimo effettivo
             if (A[j]< minimo){
-                minimo = A[j];
-                indiceminimo= j;
+                minimo = A[j];       //quel numero trovato è il nuovo minimo
+                indiceminimo= j;       //(attenzione all'ordine
             }
         }
-        A[indiceminimo]= A[i];
+        A[indiceminimo]= A[i];  //il minimo viene spostato alla casella da cui ha iniziato a contare
         A[i]= minimo;
-        }
+        }    //riprende a stabilire minimi e a spostarli fino alla penultima posizione
 }
 
 void insertionsort(vector<int>& A){
