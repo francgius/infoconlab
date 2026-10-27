@@ -56,6 +56,42 @@ void insertionsort(vector<int>& A){
     }
 }
 
+int Distribuzione(vector<int>& A, int sx, int px, int dx) {
+    swap(A[px], A[dx]);
+    int pivot = A[dx];
+    int i = sx;
+    int j = dx - 1;
+
+    while (i <= j) {
+        while (i <= j && A[i] < pivot) i++;
+        while (i <= j && A[j] >= pivot) j--;
+
+        if (i < j) {
+            swap(A[i], A[j]);
+            i++;
+            j--;
+        }
+    }
+
+    swap(A[i], A[dx]);
+    return i;
+}
+
+
+void quicksort_deterministico(vector<int>& A, int sx, int dx) {
+if (sx < dx) {
+int pivot = dx; // può essere qualunque valore in [sx .. dx]
+int rango = Distribuzione(A, sx, pivot, dx);
+quicksort_deterministico(A, sx, rango - 1);
+quicksort_deterministico(A, rango + 1, dx);
+}
+}
+
+void quicksort_deterministico(vector<int>& A){
+    quicksort_deterministico(A, 0, A.size()-1);
+}
+
+
 //verifiche
 
 bool verificaOrdinamento1(const vector<int>& A){
@@ -87,15 +123,18 @@ int main()
     using FuncPtr =void (*)(vector<int> &);
     const vector<FuncPtr> funzioni ={
         selectionsort,
-        insertionsort
+        insertionsort, 
+        quicksort_deterministico
     };
     const vector<string> nomi ={
         "selection sort",
-        "insertion sort"
+        "insertion sort", 
+        "quick sort deterministico"
     };
     const vector<string> complessita ={
         "quadratica",
-        "quadratica al caso pessimo "
+        "quadratica al caso pessimo ",
+        "quadratico al caso pessimo"
     };
     constexpr auto minVal= -50;
     constexpr auto maxVal=  50;
@@ -119,12 +158,12 @@ int main()
     if (N<31){
         printArray(B);
         }
-        cout <<endl;
+       // cout <<endl;
     if (!verificaOrdinamento3(B)){
-            cout<< "non è ordinato"<< "errore in "<< nomi[i] <<endl;
+            cout<< "non è ordinato"<< "errore in "<< nomi[i]<< endl;
         }
     else cout << "è ordinato"<< endl;
-    cout << "Ordinamento (tempo " << costo <<"): " << "["<< durata.count()<< "microsecondi]"<< endl;
+    cout << "Ordinamento (tempo " << costo <<"): " << "["<< durata.count()<< "microsecondi]"<< endl<<endl;
     }
     return 0;
 }
