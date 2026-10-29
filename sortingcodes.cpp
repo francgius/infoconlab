@@ -91,7 +91,18 @@ void quicksort_deterministico(vector<int>& A){
     quicksort_deterministico(A, 0, A.size()-1);
 }
 
+void quicksort_random(vector<int>& A, int sx, int dx){
+    if (sx<dx){
+    int pivot = sx + random(0, (dx-sx));
+    int rango= Distribuzione(A, sx, pivot, dx);
+    quicksort_random(A, sx, rango - 1);
+    quicksort_random(A, rango + 1, dx);
+    }
+}
 
+void quicksort_random(vector<int>& A){
+    quicksort_random(A, 0, A.size()-1);
+}
 //verifiche
 
 bool verificaOrdinamento1(const vector<int>& A){
@@ -124,17 +135,20 @@ int main()
     const vector<FuncPtr> funzioni ={
         selectionsort,
         insertionsort, 
-        quicksort_deterministico
+        quicksort_deterministico,
+        quicksort_random
     };
     const vector<string> nomi ={
         "selection sort",
         "insertion sort", 
-        "quick sort deterministico"
+        "quick sort deterministico", 
+        "quick sort random"
     };
     const vector<string> complessita ={
         "quadratica",
         "quadratica al caso pessimo ",
-        "quadratico al caso pessimo"
+        "quadratico al caso pessimo",
+        "lineare logaritmico"
     };
     constexpr auto minVal= -50;
     constexpr auto maxVal=  50;
